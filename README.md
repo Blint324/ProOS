@@ -5,3 +5,5 @@ Requirements:
 - GNU Linux
 - GCC and Python3
 - A lot of programming knowlege.
+# WARNING
+Launch getdir.py BEFORE mainterminal.py.
