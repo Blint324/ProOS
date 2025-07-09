@@ -15,7 +15,6 @@ print("Defining variables done.")
 print("Starting main loop...")
 
 while True:
-    cmdSep = []
     cmd = input(f"{cwd}: ")
     cmd.lower()
 
@@ -36,6 +35,10 @@ while True:
         else:
             if cmd[5:8] == "ver":
                 print("Prints the current version of ProOS.\nFlags:\n-d: Displays more detailed info about ProOS.\n-h: Displays help for the command.")
+            elif cmd[5:9] == "exit":
+                print("Exits the program.")
+            elif cmd[5:11] == "repeat":
+                print("Repeats whatever you put next to it.")
             else:
                 print(f"No help document detected for {cmd[5:999999999999999999999999999999999999999]}.")
     elif cmd[0:4] == "exit":
