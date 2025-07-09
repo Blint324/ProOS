@@ -1,7 +1,10 @@
+import os
+
+os.system("clear")
+
 print("Welcome to ProOS!")
 print("Importing core libraries...")
 
-import os
 import time
 import datetime
 import random
@@ -43,7 +46,7 @@ while True:
                 print(f"No help document detected for {cmd[5:999999999999999999999999999999999999999]}.")
     elif cmd[0:4] == "exit":
         quit(0)
-    elif cmd[0:6] == "repeat:
+    elif cmd[0:6] == "repeat":
         if len(cmd) == 6:
             print("Invalid usage!\nUsage:\nrepeat [ANYTHING]")
         else:
