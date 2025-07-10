@@ -132,7 +132,7 @@ while True:
             if writeMode == "":
                 writeMode = "w"
             f = open(f"{cmd[6:999999999999999999]}", f"{writeMode}")
-            writeCont = input("What to write?")
+            writeCont = input("What to write? ")
             f.write(writeCont)
             f.close()
 
