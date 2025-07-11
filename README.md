@@ -6,4 +6,4 @@ Requirements:
 - GCC and Python3
 - A lot of programming knowlege.
 # WARNING
-Launch getdir.py BEFORE mainterminal.py.
+Launch getdir.py BEFORE mainterminal.py.aa
