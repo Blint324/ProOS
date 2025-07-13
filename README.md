@@ -6,8 +6,8 @@ ProOS (Short for Programmer OS) is a mockup operating system made in various lan
 This will most likely support Windows in the future, however at the moment I'm just a single person writing this, so dont expect ports soon. Currently it only works for Linux.
 Requirements:
 - GNU Linux
-- GCC and Python3
-- A lot of programming knowlege.
+- Python3
+- A lot of programming knowlege
 - The termcolor library for Python
 
 ## Installation
