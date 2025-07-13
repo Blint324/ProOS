@@ -34,7 +34,34 @@ f.close()
 
 print("Creating log file done.")
 
+userFiles = 0
+for file in os.listdir(f"{trueCwd}/data/users"):
+    userFiles = userFiles + 1
+f = open(f"{trueCwd}/data/config/autolog.conf", "r")
+autoLog2 = f.read()
+f.close()
+if autoLog2 == "false":
+    if userFiles == 1:
+        autoLog = input(colored("Hey! We noticed you only have one user registered, would you like to enable autologin? (This can be disabled any time by configuring the autolog.conf file in /data/config.) [y/N] ", "blue"))
+        autoLog.lower()
+        if autoLog == "":
+            pass
+        elif autoLog == "y":
+            f = open(f"{trueCwd}/data/config/autolog.conf", "w")
+            f.write("true")
+            f.close()
+            f = open(f"{trueCwd}/data/config/autolog.conf", "r")
+            autoLog2 = f.read()
+            f.close()
+        else:
+            print("Thats not an option!")
+
+else:
+    pass
+
 while True:
+    if autoLog2 == "true":
+        break
     loginCmd = input(colored(f"{cwd}: ", "light_green"))
     loginCmd.lower()
     if loginCmd == "help":
@@ -92,10 +119,16 @@ print("Starting main loop...")
 
 os.system("clear")
 while True:
-    cmd = input(colored(f"{cwd}${loginSplit[1]}: ", "light_blue"))
-    f = open(f"{trueCwd}/data/logs/{logTime}.log", "a")
-    f.write(f"{datetime.datetime.today()}:  User {loginSplit[1]} executed command {cmd}\n")
-    f.close()
+    if autoLog2 == "false":
+        cmd = input(colored(f"{cwd}${loginSplit[1]}: ", "light_blue"))
+        f = open(f"{trueCwd}/data/logs/{logTime}.log", "a")
+        f.write(f"{datetime.datetime.today()}:  User {loginSplit[1]} executed command {cmd}\n")
+        f.close()
+    else:
+        cmd = input(colored(f"{cwd}$anonymous: ", "light_blue"))
+        f = open(f"{trueCwd}/data/logs/{logTime}.log", "a")
+        f.write(f"{datetime.datetime.today()}:  User anonymous executed command {cmd}\n")
+        f.close()
     cmd.lower()
 
     # Checking for commands
@@ -201,7 +234,6 @@ while True:
                     print(colored(f"Error! Directory {cmd[4:9999999999999999999999999999]} not found!", "red"))
                 except:
                     print(colored("Error! Unknown.", "red"))
-
     elif cmd[0:2] == "ls":
         if len(cmd) == 2:
             print(str(os.listdir()).replace("[", "").replace("]", "").replace(",", "   ").replace("'", ""))

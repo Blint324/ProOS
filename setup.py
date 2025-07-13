@@ -17,6 +17,10 @@ try:
     os.mkdir(f"{directory}/data")
     os.mkdir(f"{directory}/data/users")
     os.mkdir(f"{directory}/data/logs")
+    os.mkdir(f"{directory}/data/config")
+    f = open(f"{directory}/data/config/autolog.conf", "w")
+    f.write("false")
+    f.close()
 except FileExistsError:
     print(colored("Error! Files already exist.", "red"))
 print("Setup done!")
