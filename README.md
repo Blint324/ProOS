@@ -7,4 +7,4 @@ Requirements:
 - A lot of programming knowlege.
 - The termcolor module for Python
 # WARNING
-Launch getdir.py BEFORE mainterminal.py.aa
+Launch setup.py BEFORE mainterminal.py.aa
