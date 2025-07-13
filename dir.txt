@@ -1,1 +1,1 @@
-/home/blint/Programs/ProOS/base
+/home/blint/Programs/ProOS
