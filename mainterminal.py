@@ -22,7 +22,7 @@ print("Defining variables...")
 
 cmd = ""
 cwd = os.getcwd()
-trueCwd = os.getcwd()
+trueCwd = __file__.replace("mainterminal.py","")
 user = ""
 sys.set_int_max_str_digits(0)
 print("Defining variables done.")
@@ -40,7 +40,7 @@ for file in os.listdir(f"{trueCwd}/data/users"):
 f = open(f"{trueCwd}/data/config/autolog.conf", "r")
 autoLog2 = f.read()
 f.close()
-if autoLog2 == "false":
+if autoLog2[0:5] == "false":
     if userFiles == 1:
         autoLog = input(colored("Hey! We noticed you only have one user registered, would you like to enable autologin? (This can be disabled any time by configuring the autolog.conf file in /data/config.) [y/N] ", "blue"))
         autoLog.lower()
@@ -52,6 +52,7 @@ if autoLog2 == "false":
             f.close()
             f = open(f"{trueCwd}/data/config/autolog.conf", "r")
             autoLog2 = f.read()
+            autoLog2 = str(autoLog2)
             f.close()
         else:
             print("Thats not an option!")
@@ -60,7 +61,7 @@ else:
     pass
 
 while True:
-    if autoLog2 == "true":
+    if autoLog2[0:4] == "true":
         break
     loginCmd = input(colored(f"{cwd}: ", "light_green"))
     loginCmd.lower()
@@ -119,7 +120,7 @@ print("Starting main loop...")
 
 os.system("clear")
 while True:
-    if autoLog2 == "false":
+    if autoLog2[0:5] == "false":
         cmd = input(colored(f"{cwd}${loginSplit[1]}: ", "light_blue"))
         f = open(f"{trueCwd}/data/logs/{logTime}.log", "a")
         f.write(f"{datetime.datetime.today()}:  User {loginSplit[1]} executed command {cmd}\n")
@@ -323,7 +324,7 @@ while True:
             except:
                 print(colored("Error! Unknown.", "red"))
     elif cmd[0:7] == "restart":
-        os.system("bash restart.sh")
+        os.system(f"python3 {trueCwd}/restart.py")
         quit(0)
     elif cmd[0:2] == "rm":
         if len(cmd) == 2:
