@@ -17,6 +17,7 @@ import random
 import linecache
 import shutil
 import sys
+import math
 
 print("Importing done.")
 print("Defining variables...")
@@ -26,6 +27,7 @@ cwd = os.getcwd()
 trueCwd = __file__.replace("mainterminal.py","")
 user = ""
 sys.set_int_max_str_digits(0)
+
 print("Defining variables done.")
 print("Creating log file...")
 
@@ -41,6 +43,10 @@ for file in os.listdir(f"{trueCwd}/data/users"):
 f = open(f"{trueCwd}/data/config/autolog.conf", "r")
 autoLog2 = f.read()
 f.close()
+
+if userFiles == 1:
+    userName = os.listdir(f"{trueCwd}/data/users")[0]
+    userName = userName.replace(".user","")
 if autoLog2[0:5] == "false":
     if userFiles == 1:
         autoLog = input(colored("Hey! We noticed you only have one user registered, would you like to enable autologin? (This can be disabled any time by configuring the autolog.conf file in /data/config.) [y/N] ", "blue"))
@@ -57,10 +63,8 @@ if autoLog2[0:5] == "false":
             f.close()
         else:
             print("Thats not an option!")
-
 else:
     pass
-
 while True:
     if autoLog2[0:4] == "true":
         break
@@ -119,7 +123,6 @@ while True:
 
 print("Starting main loop...")
 
-os.system("clear")
 while True:
     if autoLog2[0:5] == "false":
         cmd = input(colored(f"{cwd}${loginSplit[1]}: ", "light_blue"))
@@ -127,9 +130,9 @@ while True:
         f.write(f"{datetime.datetime.today()}:  User {loginSplit[1]} executed command {cmd}\n")
         f.close()
     else:
-        cmd = input(colored(f"{cwd}$anonymous: ", "light_blue"))
+        cmd = input(colored(f"{cwd}${userName}: ", "light_blue"))
         f = open(f"{trueCwd}/data/logs/{logTime}.log", "a")
-        f.write(f"{datetime.datetime.today()}:  User anonymous executed command {cmd}\n")
+        f.write(f"{datetime.datetime.today()}:  User {userName} executed command {cmd}\n")
         f.close()
     cmd.lower()
 
@@ -137,10 +140,10 @@ while True:
 
     if cmd[0:3] == "ver":
         if len(cmd) == 3:
-            print("ProOS version Alpha 1.6")
+            print("ProOS version Alpha 1.7")
         else:
             if cmd[3:6] == " -d":
-                print("ProOS version Alpha 1.6\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
+                print("ProOS version Alpha 1.7\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
             elif cmd[3:6] == " -h":
                 print("Displays the current version of ProOS.\nUsage:\nver [FLAGS]")
     elif cmd[0:4] == "help":
@@ -193,6 +196,8 @@ while True:
                 print("Prints a random integer in the range of two values.\nUsage:\nqm.rand [INT1],[INT2]\nside note: before everyone argues about what it stands for, qm is for QuickMath.")
             elif cmd[5:11] == "qm.fib":
                 print("Generates a certain amount of fibonacci numbers.\nUsage:\nqm.fib [NUM]\nside note: before everyone argues about what it stands for, qm is for QuickMath.")
+            elif cmd[5:11] == "qm.fac":
+                print("Generates the factorial of a number.\nUsage:\nqm.fac [NUM]\nside note: before everyone argues about what it stands for, qm is for QuickMath.")
             else:
                 print(f"No help document detected for {cmd[5:999999999999999999999999999999999999999]}.")
     elif cmd[0:4] == "exit":
@@ -240,7 +245,7 @@ while True:
         if len(cmd) == 2:
             print(str(os.listdir()).replace("[", "").replace("]", "").replace(",", "   ").replace("'", ""))
         else:
-            if cmd[3:5] == "-r":
+            if cmd[5:7] == "-r":
                 if not cmd[6:8] == "-h":
                     os.system(f"ls -R {cmd[6:999999999999999999999999999999]}")
                 else:
@@ -416,18 +421,38 @@ while True:
         if len(cmd) == 6:
             print("Invalid usage! Usage: qm.fib [NUM]")
         else:
-            qmFibSplit = cmd.split()
-            qmNext = 1
-            qm1 = 0
-            qm2 = 1
-            if len(qmFibSplit) > 1:
-                print("0", end=" ")
-                for i in range(int(qmFibSplit[1])):
-                    print(qmNext, end=" ")
-                    qm1, qm2 = qm2, qmNext
-                    qmNext = qm1 + qm2
-            else:
-                print("Invalid usage! Usage: qm.fib [NUM]")
+            try:
+                qmFibSplit = cmd.split()
+                qmFibNext = 1
+                qmFib1 = 0
+                qmFib2 = 1
+                if len(qmFibSplit) > 1:
+                    print("0", end=" ")
+                    for i in range(int(qmFibSplit[1])):
+                        print(qmFibNext, end=" ")
+                        qmFib1, qmFib2 = qmFib2, qmFibNext
+                        qmFibNext = qmFib1 + qmFib2
+                else:
+                    print("Invalid usage! Usage: qm.fib [NUM]")
+            except ValueError:
+                print(colored("Error! Must use an integer.", "red"))
+            except:
+                print(colored("Error! Unknown.", "red"))
+    elif cmd[0:6] == "qm.fac":
+        if len(cmd) == 6:
+            print("Invalid usage! Usage: qm.fac [NUM]")
+        else:
+            try:
+                qmFacSplit = cmd.split()
+                qmFacInput = int(qmFacSplit[1])
+                if len(qmFacSplit) > 1:
+                    print(math.factorial(qmFacInput))
+                else:
+                    print("Invalid usage! Usage: qm.fac [NUM]")
+            except ValueError:     
+                print(colored("Error! Must use an integer.", "red"))    
+            except:    
+                print(colored("Error! Unknown.", "red"))
     else:
         if not cmd == "":
             cmdNotFound = cmd.split()
