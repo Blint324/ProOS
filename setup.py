@@ -21,6 +21,9 @@ try:
     f = open(f"{directory}/data/config/autolog.conf", "w")
     f.write("false")
     f.close()
+    f = open(f"{directory}/data/config/bootexec.py", "w")
+    f.write("# This file starts whenever you launch mainterminal.py, put any python script here you'd like.")
+    f.close()
 except FileExistsError:
     print(colored("Error! Files already exist.", "red"))
 print("Setup done!")

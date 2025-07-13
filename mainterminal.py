@@ -136,10 +136,10 @@ while True:
 
     if cmd[0:3] == "ver":
         if len(cmd) == 3:
-            print("ProOS version u1.5")
+            print("ProOS version Alpha 1.6")
         else:
             if cmd[3:6] == " -d":
-                print("ProOS version u1.5\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
+                print("ProOS version Alpha 1.6\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
             elif cmd[3:6] == " -h":
                 print("Displays the current version of ProOS.\nUsage:\nver [FLAGS]")
     elif cmd[0:4] == "help":
@@ -421,7 +421,6 @@ while True:
             qm2 = 1
             if len(qmFibSplit) > 1:
                 print("0", end=" ")
-                
                 for i in range(int(qmFibSplit[1])):
                     print(qmNext, end=" ")
                     qm1, qm2 = qm2, qmNext
