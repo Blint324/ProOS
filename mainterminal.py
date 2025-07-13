@@ -25,9 +25,9 @@ print("Defining variables...")
 cmd = ""
 cwd = os.getcwd()
 trueCwd = __file__.replace("mainterminal.py","")
+trueCwd = trueCwd[0:len(trueCwd) - 1]
 user = ""
 sys.set_int_max_str_digits(0)
-
 print("Defining variables done.")
 print("Creating log file...")
 
@@ -140,10 +140,10 @@ while True:
 
     if cmd[0:3] == "ver":
         if len(cmd) == 3:
-            print("ProOS version Alpha 1.7")
+            print("ProOS version Alpha e1.8")
         else:
             if cmd[3:6] == " -d":
-                print("ProOS version Alpha 1.7\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
+                print("ProOS version Alpha e1.8\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
             elif cmd[3:6] == " -h":
                 print("Displays the current version of ProOS.\nUsage:\nver [FLAGS]")
     elif cmd[0:4] == "help":
@@ -453,6 +453,35 @@ while True:
                 print(colored("Error! Must use an integer.", "red"))    
             except:    
                 print(colored("Error! Unknown.", "red"))
+    elif cmd[0:8] == "contains":
+        if len(cmd) == 8:
+            print("Invalid usage! Usage: contains [<FLAGS>] [TEXT/FILE]")
+        else:
+            contSplit = cmd.split()
+            if cmd[9:11] == "-f":
+                try:
+                    f = open(f"{contSplit[2]}", "r")
+                    contFile = f.read()
+                    contFileName = contSplit[2]
+                    contSearch = input("Text to search for: ")
+                    if contSearch in contFile:
+                        print(f"{contSearch} located at character {contFile.find(contSearch)} in {contFileName}.")
+                    else:
+                        print(f"{contSearch} not found in {contFileName}.")
+                except FileNotFoundError:
+                    print(colored(f"Error! File {contFileName} doesn't exist.", "red"))
+                except:
+                    print(colored("Error! Unknown.", "red"))
+            elif cmd[9:11] == "-h":
+                print("Locates a substring inside a string or file.\nFlags:\n-f: Searches in file.\n-h: Shows this help prompt.\nUsage:\ncontains [<FLAGS>] [TEXT/FILE]")
+            else:
+                contSearch = input("Text to search for: ")
+                if contSearch in cmd[9:99999999999999999999999999999999999999]:
+                    print(f"{contSearch} located at character {cmd[9:999999999999999999999999999].find(contSearch)}.")
+                else:
+                    print(f"{contSearch} not found in {cmd[9:999999999999999999999999999999999999]}.")
+
+            
     else:
         if not cmd == "":
             cmdNotFound = cmd.split()
