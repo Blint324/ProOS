@@ -2,6 +2,7 @@ import os
 from termcolor import colored
 
 os.system("clear")
+os.system("python3 /data/config/bootexec.py")
 
 print("Welcome to ProOS!")
 
