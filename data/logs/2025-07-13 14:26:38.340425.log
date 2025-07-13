@@ -1,0 +1,4 @@
+2025-07-13 14:26:39.847471:  User anonymous executed command write jdfjndf
+2025-07-13 14:26:45.066171:  User anonymous executed command ls
+2025-07-13 14:26:53.153317:  User anonymous executed command rm jdfjndf
+2025-07-13 14:27:01.374254:  User anonymous executed command exit

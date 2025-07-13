@@ -1,0 +1,7 @@
+2025-07-13 14:17:07.904833:  User anonymous executed command dir ..
+2025-07-13 14:17:09.649829:  User anonymous executed command dir users
+2025-07-13 14:17:10.321965:  User anonymous executed command ls
+2025-07-13 14:17:16.069617:  User anonymous executed command dir ..
+2025-07-13 14:17:17.021543:  User anonymous executed command dir ..
+2025-07-13 14:17:22.133828:  User anonymous executed command exec nvim mainterminal.py
+2025-07-13 14:18:17.982149:  User anonymous executed command restart
