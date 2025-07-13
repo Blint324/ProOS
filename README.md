@@ -8,14 +8,15 @@ Requirements:
 - GNU Linux
 - GCC and Python3
 - A lot of programming knowlege.
-- The termcolor module for Python
+- The termcolor library for Python
 
 ## Installation
 
 ProOS is reccomended to be installed on GNU Linux, as it relies heavily on Linux bash and is undocumented and untested on Windows or MacOS.
 FreeBSD is also undocumented, but may have a higher chance of fully working.
 To install ProOS, first download the source code, the main branch is reccomended, as it has the latest stable release, however, if you want the latest commands, go with the experimental branches, but be aware, as that can be unstable and may have many bugs.
-Once you have your source code of source, simply run setup.py and it will create everything for you, once that's done, it will autostart mainterminal.py.
+Once you have your source code of choice, simply run setup.py and it will create everything for you, once that's done, it will autostart mainterminal.py.
+Be aware that you will need the termcolor module for python3, which you can get on Linux with `pip install --break-system-packages termcolor`.
 
 ## Quick Start
 
@@ -25,4 +26,8 @@ Once you're in mainterminal.py, you will have to log in, you can get help via us
 3. And finally, run `login <USERNAME>` to log in, where you will have to enter your previously set password.
 When you're outside of the login screen, you will most likely be in the main loop. The main loop runs the commands of the program, which you can print by running `help -a`.
 From there, it should be straight forward. If you need help, please open an issue for the program on the Github website and we will gladly help.
-Thank you for choosing ProOS.
+
+## Info
+
+ProOS at the moment is only tested for Debian GNU Linux, and may be unstable on other distributions or OS's.
+No, ProOS is _not_ an actual os, and is simply a mockup that I'm making with a few friends to practice my coding skills.
