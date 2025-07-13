@@ -31,7 +31,3 @@ From there, it should be straight forward. If you need help, please open an issu
 
 ProOS at the moment is only tested for Debian GNU Linux, and may be unstable on other distributions or OS's.
 No, ProOS is _not_ an actual os, and is simply a mockup that I'm making with a few friends to practice my coding skills.
-=======
-- The termcolor module for Python
-# WARNING
-Launch getdir.py BEFORE mainterminal.py.
