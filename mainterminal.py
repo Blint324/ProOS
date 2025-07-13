@@ -259,7 +259,7 @@ while True:
         if len(cmd) == 5:
             print("Invalid usage! Usage: write [FILE]")
         else:
-            writeMode = input("What mode to write in? (Default: overwrite) (W/A) ")
+            writeMode = input("What mode to write in? (W/a) ")
             writeMode = writeMode.lower()
             if writeMode == "":
                 writeMode = "w"
@@ -429,5 +429,8 @@ while True:
             else:
                 print("Invalid usage! Usage: qm.fib [NUM]")
     else:
-        cmdNotFound = cmd.split()
-        print(f"Command {cmdNotFound[0]} not found!")
+        if not cmd == "":
+            cmdNotFound = cmd.split()
+            print(f"Command {cmdNotFound[0]} not found!")
+        else:
+            print(f"Command {cmd} not found!")
