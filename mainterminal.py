@@ -15,6 +15,7 @@ import datetime
 import random
 import linecache
 import shutil
+import sys
 
 print("Importing done.")
 print("Defining variables...")
@@ -23,7 +24,7 @@ cmd = ""
 cwd = os.getcwd()
 trueCwd = os.getcwd()
 user = ""
-
+sys.set_int_max_str_digits(0)
 print("Defining variables done.")
 print("Creating log file...")
 
@@ -112,7 +113,7 @@ while True:
             print("Basic commands:\nrepeat\nexit\nver\ndisplay\ndir\nls\nexec\nwrite\nqm.add\nqm.sub\nqm.mult\nqm.div\nmv\ncp\ncrt")
         else:
             if cmd[5:7] == "-a":
-                print("repeat exit ver display dir ls exec write qm.add qm.sub qm.mult qm.div restart crt cp pyexec mv qm.rand")
+                print("repeat exit ver display dir ls exec write qm.add qm.sub qm.mult qm.div restart crt cp pyexec mv qm.rand qm.fib")
             if cmd[5:8] == "ver":
                 print("Prints the current version of ProOS.\nFlags:\n-d: Displays more detailed info about ProOS.\n-h: Displays help for the command.")
             elif cmd[5:9] == "exit":
@@ -155,6 +156,8 @@ while True:
                 print("Moves a file.\nUsage:\nmv [FILE] [FOLDER]")
             elif cmd[5:12] == "qm.rand":
                 print("Prints a random integer in the range of two values.\nUsage:\nqm.rand [INT1],[INT2]\nside note: before everyone argues about what it stands for, qm is for QuickMath.")
+            elif cmd[5:11] == "qm.fib":
+                print("Generates a certain amount of fibonacci numbers.\nUsage:\nqm.fib [NUM]\nside note: before everyone argues about what it stands for, qm is for QuickMath.")
             else:
                 print(f"No help document detected for {cmd[5:999999999999999999999999999999999999999]}.")
     elif cmd[0:4] == "exit":
@@ -357,7 +360,7 @@ while True:
                 try:
                     shutil.move(mvSplit2[0], mvSplit2[1])
                 except FileNotFoundError:
-                    print(colored(f"Error! File {mvSplit2[0]} or {mvSplit2[1]} not found!", "red"))
+                    print(colored(f"Error! File {mvSplit2[0]} or {mvSplit2[1]} not found.", "red"))
                 except:
                     print(colored("Error! Unknown.", "red"))
             else:
@@ -374,7 +377,24 @@ while True:
                 except ValueError:
                     print(colored("Error! Must use two integers.", "red"))
             else:
-                print(colored("Error! Must use two integers for qm.rand.", "red"))             
+                print(colored("Error! Must use two integers for qm.rand.", "red"))
+    elif cmd[0:6] == "qm.fib":
+        if len(cmd) == 6:
+            print("Invalid usage! Usage: qm.fib [NUM]")
+        else:
+            qmFibSplit = cmd.split()
+            qmNext = 1
+            qm1 = 0
+            qm2 = 1
+            if len(qmFibSplit) > 1:
+                print("0", end=" ")
+                
+                for i in range(int(qmFibSplit[1])):
+                    print(qmNext, end=" ")
+                    qm1, qm2 = qm2, qmNext
+                    qmNext = qm1 + qm2
+            else:
+                print("Invalid usage! Usage: qm.fib [NUM]")
     else:
         cmdNotFound = cmd.split()
         print(f"Command {cmdNotFound[0]} not found!")
