@@ -168,7 +168,7 @@ while True:
             print("Basic commands:\nrepeat\nexit\nver\ndisplay\ndir\nls\nexec\nwrite\nqm.add\nqm.sub\nqm.mult\nqm.div\nmv\ncp\ncrt")
         else:
             if cmd[5:7] == "-a":
-                print("repeat exit ver display dir ls exec write qm.add qm.sub qm.mult qm.div restart crt cp pyexec mv qm.rand qm.fib")
+                print("repeat exit ver display dir ls exec write qm.add qm.sub qm.mult qm.div restart crt cp pyexec mv qm.rand qm.fib qm.fac login contains")
             if cmd[5:8] == "ver":
                 print("Prints the current version of ProOS.\nFlags:\n-d: Displays more detailed info about ProOS.\n-h: Displays help for the command.")
             elif cmd[5:9] == "exit":
