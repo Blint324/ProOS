@@ -28,6 +28,7 @@ trueCwd = __file__.replace("mainterminal.py","")
 trueCwd = trueCwd[0:len(trueCwd) - 1]
 user = ""
 sys.set_int_max_str_digits(0)
+
 print("Defining variables done.")
 print("Creating log file...")
 
@@ -44,82 +45,98 @@ f = open(f"{trueCwd}/data/config/autolog.conf", "r")
 autoLog2 = f.read()
 f.close()
 
-if userFiles == 1:
-    userName = os.listdir(f"{trueCwd}/data/users")[0]
-    userName = userName.replace(".user","")
-if autoLog2[0:5] == "false":
+print("Defining functions...")
+
+def login():
+    f = open(f"{trueCwd}/data/config/autolog.conf", "r")
+    autoLog2 = f.read()
+    f.close()
+
     if userFiles == 1:
-        autoLog = input(colored("Hey! We noticed you only have one user registered, would you like to enable autologin? (This can be disabled any time by configuring the autolog.conf file in /data/config.) [y/N] ", "blue"))
-        autoLog.lower()
-        if autoLog == "":
-            pass
-        elif autoLog == "y":
-            f = open(f"{trueCwd}/data/config/autolog.conf", "w")
-            f.write("true")
-            f.close()
-            f = open(f"{trueCwd}/data/config/autolog.conf", "r")
-            autoLog2 = f.read()
-            autoLog2 = str(autoLog2)
-            f.close()
-        else:
-            print("Thats not an option!")
-else:
-    pass
-while True:
-    if autoLog2[0:4] == "true":
-        break
-    loginCmd = input(colored(f"{cwd}: ", "light_green"))
-    loginCmd.lower()
-    if loginCmd == "help":
-        print("This is the login screen, if this is your first time booting up ProOS, follow these steps:\n1. mkuser [USERNAME]\n2. setpass [USERNAME],[PASSWORD]\n3. login [USERNAME].\nOtherwise, type login [USERNAME] and you will start logging in.")
-    elif loginCmd[0:6] == "mkuser":
-        if len(loginCmd) == 6:
-            print("Invalid usage! Usage: mkuser [USERNAME]")
-        else:
-            mkuserSplit = loginCmd.split()
-            if len(mkuserSplit) > 1:
-                f = open(f"{trueCwd}/data/users/{mkuserSplit[1]}.user", "w")
+        global userName
+        userName = os.listdir(f"{trueCwd}/data/users")[0]
+        userName = userName.replace(".user","")
+    if autoLog2[0:5] == "false":
+        if userFiles == 1:
+            autoLog = input(colored("Hey! We noticed you only have one user registered, would you like to enable autologin? (This can be disabled any time by configuring the autolog.conf file in /data/config.) [y/N] ", "blue"))
+            autoLog.lower()
+            if autoLog == "":
+                pass
+            if autoLog == "n":
+                pass
+            elif autoLog == "y":
+                f = open(f"{trueCwd}/data/config/autolog.conf", "w")
+                f.write("true")
+                f.close()
+                f = open(f"{trueCwd}/data/config/autolog.conf", "r")
+                autoLog2 = f.read()
+                autoLog2 = str(autoLog2)
                 f.close()
             else:
-                print("Invalid usage! Usage: mkuser [USERNAME]")
-    elif loginCmd[0:7] == "setpass":
-        if len(loginCmd) == 7:
-            print("Invalid usage! Usage: setpass [USERNAME],[PASSWORD]")
-        else:
-            setpassSplit = loginCmd.split()
-            setpassSplit2 = setpassSplit[1].split(",")
-            if len(setpassSplit2) > 1:
-                try:
-                    f = open(f"{trueCwd}/data/users/{setpassSplit2[0]}.user", "w")
-                    f.write(setpassSplit2[1])
-                    f.close()
-                except FileNotFoundError:
-                    print(colored(f"Error! User file {setpassSplit2[0]} not found.", "red"))
-            else:
-                print("Invalid usage! Usage: setpass [USERNAME],[PASSWORD]")
-    elif loginCmd[0:5] == "login":
-        if len(loginCmd) == 5:
-            print("Invalid usage! Usage: login [USERNAME]")
-        else:
-            loginSplit = loginCmd.split()
-            if len(loginSplit) > 1:
-                try:
-                    f = open(f"{trueCwd}/data/users/{loginSplit[1]}.user", "r")
-                    loginPass = f.read()
-                    loginInput = input("Password: ")
-                    if loginInput == loginPass:
-                        break
-                    else:
-                        print("Wrong password!")
-                except FileNotFoundError:
-                    print(colored(f"Error! User file {loginSplit[1]} not found.", "red"))
-            else:
-                print("Invalid usage! Usage: login [USERNAME]")
-    elif loginCmd == "exit":
-        quit(0)
+                print("Thats not an option!")
     else:
-        wrongLoginCmd = loginCmd.split()
-        print(f"Command {wrongLoginCmd[0]} not found!")
+        pass
+    while True:
+        if autoLog2[0:4] == "true":
+            break
+        loginCmd = input(colored(f"{cwd}: ", "light_green"))
+        loginCmd.lower()
+        if loginCmd == "help":
+            print("This is the login screen, if this is your first time booting up ProOS, follow these steps:\n1. mkuser [USERNAME]\n2. setpass [USERNAME],[PASSWORD]\n3. login [USERNAME].\nOtherwise, type login [USERNAME] and you will start logging in.")
+        elif loginCmd[0:6] == "mkuser":
+            if len(loginCmd) == 6:
+                print("Invalid usage! Usage: mkuser [USERNAME]")
+            else:
+                mkuserSplit = loginCmd.split()
+                if len(mkuserSplit) > 1:
+                    f = open(f"{trueCwd}/data/users/{mkuserSplit[1]}.user", "w")
+                    f.close()
+                else:
+                    print("Invalid usage! Usage: mkuser [USERNAME]")
+        elif loginCmd[0:7] == "setpass":
+            if len(loginCmd) == 7:
+                print("Invalid usage! Usage: setpass [USERNAME],[PASSWORD]")
+            else:
+                setpassSplit = loginCmd.split()
+                setpassSplit2 = setpassSplit[1].split(",")
+                if len(setpassSplit2) > 1:
+                    try:
+                        f = open(f"{trueCwd}/data/users/{setpassSplit2[0]}.user", "w")
+                        f.write(setpassSplit2[1])
+                        f.close()
+                    except FileNotFoundError:
+                        print(colored(f"Error! User file {setpassSplit2[0]} not found.", "red"))
+                else:
+                    print("Invalid usage! Usage: setpass [USERNAME],[PASSWORD]")
+        elif loginCmd[0:5] == "login":
+            if len(loginCmd) == 5:
+                print("Invalid usage! Usage: login [USERNAME]")
+            else:
+                global loginSplit
+                loginSplit = loginCmd.split()
+                if len(loginSplit) > 1:
+                    try:
+                        f = open(f"{trueCwd}/data/users/{loginSplit[1]}.user", "r")
+                        loginPass = f.read()
+                        loginInput = input("Password: ")
+                        if loginInput == loginPass:
+                            break
+                        else:
+                            print("Wrong password!")
+                    except FileNotFoundError:
+                        print(colored(f"Error! User file {loginSplit[1]} not found.", "red"))
+                else:
+                    print("Invalid usage! Usage: login [USERNAME]")
+        elif loginCmd == "exit":
+            quit(0)
+        else:
+            wrongLoginCmd = loginCmd.split()
+            if len(wrongLoginCmd) > 1:
+                print(f"Command {wrongLoginCmd[0]} not found!")
+            else:
+                print(f"Command {loginCmd} not found!")
+
+login()
 
 print("Starting main loop...")
 
@@ -140,10 +157,10 @@ while True:
 
     if cmd[0:3] == "ver":
         if len(cmd) == 3:
-            print("ProOS version Alpha e1.8")
+            print("ProOS version Alpha 1.8")
         else:
             if cmd[3:6] == " -d":
-                print("ProOS version Alpha e1.8\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
+                print("ProOS version Alpha 1.8\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
             elif cmd[3:6] == " -h":
                 print("Displays the current version of ProOS.\nUsage:\nver [FLAGS]")
     elif cmd[0:4] == "help":
@@ -198,6 +215,10 @@ while True:
                 print("Generates a certain amount of fibonacci numbers.\nUsage:\nqm.fib [NUM]\nside note: before everyone argues about what it stands for, qm is for QuickMath.")
             elif cmd[5:11] == "qm.fac":
                 print("Generates the factorial of a number.\nUsage:\nqm.fac [NUM]\nside note: before everyone argues about what it stands for, qm is for QuickMath.")
+            elif cmd[5:10] == "login":
+                print("Executes the login script.")
+            elif cmd[5:13] == "contains":
+                print("Searches for a substring in a string.\nUsage:\ncontains [<FLAGS>]\nFlags:\n-f: Searches in a file.")
             else:
                 print(f"No help document detected for {cmd[5:999999999999999999999999999999999999999]}.")
     elif cmd[0:4] == "exit":
@@ -455,7 +476,7 @@ while True:
                 print(colored("Error! Unknown.", "red"))
     elif cmd[0:8] == "contains":
         if len(cmd) == 8:
-            print("Invalid usage! Usage: contains [<FLAGS>] [TEXT/FILE]")
+            print("Invalid usage! Usage: contains [<FLAGS>]")
         else:
             contSplit = cmd.split()
             if cmd[9:11] == "-f":
@@ -480,8 +501,12 @@ while True:
                     print(f"{contSearch} located at character {cmd[9:999999999999999999999999999].find(contSearch)}.")
                 else:
                     print(f"{contSearch} not found in {cmd[9:999999999999999999999999999999999999]}.")
-
-            
+    elif cmd[0:5] == "login":
+        f = open(f"{trueCwd}/data/config/autolog.conf", "r")
+        autoLog2 = f.read()
+        f.close()
+        login()
+        print(colored("INFO: If nothing gets outputted, autolog.conf is set to true.", "blue"))
     else:
         if not cmd == "":
             cmdNotFound = cmd.split()
