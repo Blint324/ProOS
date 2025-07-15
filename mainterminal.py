@@ -1,10 +1,14 @@
 import os
 from termcolor import colored
 
-os.system("clear")
-os.system("python3 data/config/bootexec.py")
+f = open("dir.txt", "r")
+trueCwd = f.read()
+f.close()
 
-print("Welcome to ProOS!")
+os.system("clear")
+os.system(f"python3 {trueCwd}/data/config/bootexec.py")
+
+print("Welcome to ProShell!")
 
 if os.path.isdir("/etc") == False:
     print(colored("WARNING: You are not using Linux! Some commands are build with Linux bash in mind, and they might not work!", "yellow"))
@@ -24,8 +28,6 @@ print("Defining variables...")
 
 cmd = ""
 cwd = os.getcwd()
-trueCwd = __file__.replace("mainterminal.py","")
-trueCwd = trueCwd[0:len(trueCwd) - 1]
 user = ""
 sys.set_int_max_str_digits(0)
 
@@ -157,12 +159,12 @@ while True:
 
     if cmd[0:3] == "ver":
         if len(cmd) == 3:
-            print("ProOS version Alpha 1.8")
+            print("ProShell version Alpha 1.8")
         else:
-            if cmd[3:6] == " -d":
-                print("ProOS version Alpha 1.8\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
-            elif cmd[3:6] == " -h":
-                print("Displays the current version of ProOS.\nUsage:\nver [FLAGS]")
+            if cmd[4:6] == "-d":
+                print("ProShell version Alpha 1.8\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
+            elif cmd[4:6] == "-h":
+                print("Displays the current version of ProShell.\nUsage:\nver [FLAGS]")
     elif cmd[0:4] == "help":
         if len(cmd) == 4:
             print("Basic commands:\nrepeat\nexit\nver\ndisplay\ndir\nls\nexec\nwrite\nqm.add\nqm.sub\nqm.mult\nqm.div\nmv\ncp\ncrt")
@@ -170,7 +172,7 @@ while True:
             if cmd[5:7] == "-a":
                 print("repeat exit ver display dir ls exec write qm.add qm.sub qm.mult qm.div restart crt cp pyexec mv qm.rand qm.fib qm.fac login contains")
             if cmd[5:8] == "ver":
-                print("Prints the current version of ProOS.\nFlags:\n-d: Displays more detailed info about ProOS.\n-h: Displays help for the command.")
+                print("Prints the current version of ProShell.\nFlags:\n-d: Displays more detailed info about ProOS.\n-h: Displays help for the command.")
             elif cmd[5:9] == "exit":
                 print("Exits the program.")
             elif cmd[5:11] == "repeat":
