@@ -1,1 +1,0 @@
-# This file starts whenever you launch mainterminal.py, put any python script here you'd like.
