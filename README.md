@@ -20,6 +20,9 @@ Once you've downloaded the files, you will have to install the main shell itself
 This will set up all of the core files and directories for you, however you're not done yet.
 Once the automatic section of the setup is done, you will be greeted with a terminal. This is used to configure the necessary files.
 To fully install and configure the shell, you must first set the directory, which you can do by executing these following commands in the setup terminal:
+`distroconf [DISTRO]` to set the distro you are using (this will be used later)
+`install pip` if you haven't already
+`exec pip install --break-system-packages [DEPENDENCIES]` currently, there are no dependencies you have to install here, but later on this can be a good troubleshooter if you get an error on startup.
 `exec nvim mainterminal.py`
 Or for people that prefer nano:
 `exec nano mainterminal.py`

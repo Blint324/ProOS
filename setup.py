@@ -1,8 +1,11 @@
+import os
+os.system("clear")
+
 print("Welcome to the ProShell setup! This will be quick...")
 print("Importing core libraries...")
-import os
 from termcolor import colored
 import time
+import sys
 print("Importing done!")
 
 crashFlag = 0
@@ -35,6 +38,7 @@ if crashFlag == 0:
 else:
     print(colored(f"Error! Setup failed. Reason: {crashReason}", "red"))
     quit(1)
+distroConf = ""
 while True:
     setupCmd = input(colored(f"{directory}$setup: ", "light_green"))
     setupCmd.lower()
@@ -51,8 +55,43 @@ while True:
         os.system("python3 setup.py")
     elif setupCmd == "clear":
         os.system("clear")
-    elif setupCmd == "exit":
-        quit(0)
+    elif setupCmd[0:7] == "install":
+        if len(setupCmd) == 7:
+            print("Invalid usage! Usage: install [PACKAGE]")
+        else:
+            if distroConf == "":
+                print(colored("Error! Distroconf not set.", "red"))
+            else:
+                if distroConf == "debian" or "ubuntu":
+                    os.system("sudo apt update")
+                    os.system(f"sudo apt install {setupCmd[8:9999999999999999999]}")
+                elif distroConf == "fedora":
+                    os.system(f"sudo dnf install {setupCmd[8:9999999999999999999]}")
+                elif distroConf == "arch":
+                    os.system(f"sudo pacman -S {setupCmd[8:999999999999999999999]}")
+                elif distroConf == "suse":
+                    os.system(f"sudo zypper install {setupCmd[8:999999999999999999]}")
+                elif distroConf == "gentoo":
+                    os.system("sudo emerge --sync")
+                    os.system(f"sudo emerge {setupCmd[8:999999999999999999999999]}")
+    elif setupCmd[0:10] == "distroconf":
+        if len(setupCmd) == 10:
+            print("Invalid usage! Usage: distroconf [VALID DISTRO]\nDistros:\ndebian, ubuntu, fedora, arch, suse, gentoo.")
+        else:
+            if setupCmd[11:17] == "debian":
+                distroConf = "debian"
+            elif setupCmd[11:17] == "ubuntu":
+                distroConf = "ubuntu"
+            elif setupCmd[11:17] == "fedora":
+                distroConf = "fedora"
+            elif setupCmd[11:15] == "arch":
+                distroConf = "arch"
+            elif setupCmd[11:15] == "suse":
+                distroConf = "suse"
+            elif setupCmd[11:17] == "gentoo":
+                distroConf = "gentoo"
+            else:
+                print(f"Distro {setupCmd[11:99999999999999999]} not found!\nDistros:\ndebian, ubuntu, fedora, arch, suse, gentoo.")
     else:
         if setupCmd == "":
             print("Command not found!")
