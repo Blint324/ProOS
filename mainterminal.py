@@ -267,7 +267,7 @@ while True:
         if len(cmd) == 2:
             print(str(os.listdir()).replace("[", "").replace("]", "").replace(",", "   ").replace("'", ""))
         else:
-            if cmd[5:7] == "-r":
+            if cmd[3:5] == "-r":
                 if not cmd[6:8] == "-h":
                     os.system(f"ls -R {cmd[6:999999999999999999999999999999]}")
                 else:
