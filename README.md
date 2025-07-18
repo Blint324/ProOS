@@ -8,19 +8,26 @@ Requirements:
 - A lot of programming knowlege
 - The termcolor library for Python
 
-## Installation
+## Downloading files
 
-ProShell is reccomended to be installed on GNU Linux, as it relies heavily on Linux bash and is undocumented and untested on Windows or MacOS.
+ProShell is recommended to be installed on GNU Linux, as it relies heavily on Linux bash and is undocumented and untested on Windows or MacOS.
 FreeBSD is also undocumented, but may have a higher chance of fully working.
-To install ProShell, first download the source code, the main branch is reccomended, as it has the latest stable release, however, if you want the latest commands, go with the experimental branches, but be aware, as that can be unstable and may have many bugs.
-Once you have your source code of choice, simply run setup.py and it will create everything for you, once that's done, it will autostart mainterminal.py.
-Be aware that you will need the termcolor module for python3, which you can get on Linux with `pip install --break-system-packages termcolor`.
+To install ProShell, first download the source code, the proshell-stable branch is recommended, as it has the latest stable release, however, if you want the latest commands, go with the experimental branches, but be aware, as that can be unstable and may have many bugs.
 
-## Quick Start
+## Installation & Beginner's guide
 
-Once you're in mainterminal.py, you will have to log in, you can get help via using the help command at the login screen, but I will detail the login process here aswell:
-1. Run `mkuser <USERNAME>` to create a user file.
-2. Once that's done, run `setpass <USERNAME>` to set the password for that user
+Once you've downloaded the files, you will have to install the main shell itself. To do this, run setup.py.
+This will set up all of the core files and directories for you, however you're not done yet.
+Once the automatic section of the setup is done, you will be greeted with a terminal. This is used to configure the necessary files.
+To fully install and configure the shell, you must first set the directory, which you can do by executing these following commands in the setup terminal:
+`exec nvim mainterminal.py`
+Or for people that prefer nano:
+`exec nano mainterminal.py`
+Then once you're in, edit the line below the comment that says "EDIT THE BELOW LINE!" to be `trueCwd = "[THE DIRECTORY YOU PUT PROSHELL IN]"`
+Finally, run `start` to execute mainterminal.py.
+Once you're in mainterminal.py, you will have to create and log into a user, to do that, run the following commands:
+1. `mkuser <USERNAME>` to create a user file.
+2. Once that's done, run `setpass <USERNAME>,<PASSWORD>` to set the password for that user
 3. And finally, run `login <USERNAME>` to log in, where you will have to enter your previously set password.
 When you're outside of the login screen, you will most likely be in the main loop. The main loop runs the commands of the program, which you can print by running `help -a`.
 From there, it should be straight forward. If you need help, please open an issue for the program on the Github website and we will gladly help.

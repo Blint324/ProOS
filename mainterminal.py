@@ -1,9 +1,12 @@
 import os
 from termcolor import colored
 
-f = open("dir.txt", "r")
-trueCwd = f.read()
-f.close()
+cmd = ""
+
+# EDIT THE BELOW LINE!
+
+trueCwd = "/home/blint/Programs/ProShell"
+cwd = os.getcwd()
 
 os.system("clear")
 os.system(f"python3 {trueCwd}/data/config/bootexec.py")
@@ -26,8 +29,6 @@ import math
 print("Importing done.")
 print("Defining variables...")
 
-cmd = ""
-cwd = os.getcwd()
 user = ""
 sys.set_int_max_str_digits(0)
 
@@ -46,6 +47,9 @@ for file in os.listdir(f"{trueCwd}/data/users"):
 f = open(f"{trueCwd}/data/config/autolog.conf", "r")
 autoLog2 = f.read()
 f.close()
+if userFiles == 1:
+    userName = os.listdir(f"{trueCwd}/data/users")[0]
+    userName = userName.replace(".user","")
 
 print("Defining functions...")
 
@@ -116,6 +120,8 @@ def login():
             else:
                 global loginSplit
                 loginSplit = loginCmd.split()
+                global username
+                userName = loginSplit[1]
                 if len(loginSplit) > 1:
                     try:
                         f = open(f"{trueCwd}/data/users/{loginSplit[1]}.user", "r")
@@ -159,10 +165,10 @@ while True:
 
     if cmd[0:3] == "ver":
         if len(cmd) == 3:
-            print("ProShell version Alpha 1.8")
+            print("ProShell version Alpha 1.9")
         else:
             if cmd[4:6] == "-d":
-                print("ProShell version Alpha 1.8\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
+                print("ProShell version Alpha 1.9\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
             elif cmd[4:6] == "-h":
                 print("Displays the current version of ProShell.\nUsage:\nver [FLAGS]")
     elif cmd[0:4] == "help":
@@ -170,7 +176,7 @@ while True:
             print("Basic commands:\nrepeat\nexit\nver\ndisplay\ndir\nls\nexec\nwrite\nqm.add\nqm.sub\nqm.mult\nqm.div\nmv\ncp\ncrt")
         else:
             if cmd[5:7] == "-a":
-                print("repeat exit ver display dir ls exec write qm.add qm.sub qm.mult qm.div restart crt cp pyexec mv qm.rand qm.fib qm.fac login contains")
+                print("repeat exit ver display dir ls exec write qm.add qm.sub qm.mult qm.div restart crt cp pyexec mv qm.rand qm.fib qm.fac login contains whoami pwd")
             if cmd[5:8] == "ver":
                 print("Prints the current version of ProShell.\nFlags:\n-d: Displays more detailed info about ProOS.\n-h: Displays help for the command.")
             elif cmd[5:9] == "exit":
@@ -221,6 +227,10 @@ while True:
                 print("Executes the login script.")
             elif cmd[5:13] == "contains":
                 print("Searches for a substring in a string.\nUsage:\ncontains [<FLAGS>]\nFlags:\n-f: Searches in a file.")
+            elif cmd[5:11] == "whoami":
+                print("Prints the active user's username.")
+            elif cmd[5:14] == "latestlog":
+                print("Prints the latest log recorded.")
             else:
                 print(f"No help document detected for {cmd[5:999999999999999999999999999999999999999]}.")
     elif cmd[0:4] == "exit":
@@ -245,25 +255,14 @@ while True:
     elif cmd[0:3] == "dir":
         if len(cmd) == 3:
             print("Invalid usage!\nUsage:\ndir [DIRECTORY]")
-        if cmd.find("-h") == -1:
+        else:
             try:
-                os.chdir(cmd[4:6942069420])
+                os.chdir(cmd[4:99999999999999999999999999999])
                 cwd = os.getcwd()
             except FileNotFoundError:
-                print(colored(f"Error! Directory {cmd[4:9999999999999999999999999999]} not found!", "red"))
+                print(colored(f"Error! File {cmd[4:9999999999999]} doesn't exist.", "red"))
             except:
-                print(colored("Error! Unknown.", "red"))
-        else:
-            if cmd[4:6] == "-h":
-                print("Changes the working directory.\nUsage:\ndir [DIRECTORY]")
-            else:
-                try:
-                    os.chdir(cmd[4:6942069420])
-                    cwd = os.getcwd()
-                except FileNotFoundError:
-                    print(colored(f"Error! Directory {cmd[4:9999999999999999999999999999]} not found!", "red"))
-                except:
-                    print(colored("Error! Unknown.", "red"))
+                print(colored(f"Error! Unknown.", "red"))
     elif cmd[0:2] == "ls":
         if len(cmd) == 2:
             print(str(os.listdir()).replace("[", "").replace("]", "").replace(",", "   ").replace("'", ""))
@@ -509,6 +508,10 @@ while True:
         f.close()
         login()
         print(colored("INFO: If nothing gets outputted, autolog.conf is set to true.", "blue"))
+    elif cmd[0:6] == "whoami":
+        print(userName)
+    elif cmd[0:3] == "pwd":
+        print(cwd)
     else:
         if not cmd == "":
             cmdNotFound = cmd.split()

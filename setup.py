@@ -35,8 +35,11 @@ if custDir == "n":
     except:
         print(colored("Error! Unknown.", "red"))
         crashFlag = 1
-elif custDir == "y":
+elif custDir == "y":    
     custDirLoc = input("Where should the directory be? ")
+    f = open("dir.txt", "w")
+    f.write(directory)
+    f.close()
     print("Creating core folders...")
     try:
         os.mkdir(custDirLoc)
@@ -49,6 +52,9 @@ elif custDir == "y":
         f.close()
         f = open(f"{custDirLoc}/data/config/bootexec.py", "w")
         f.write("# This file starts whenever you launch mainterminal.py, put any python script here you'd like.")
+        f.close()
+        f = open("datadir.txt", "w")
+        f.write(custDirLoc)
         f.close()
     except FileExistsError:
         print(colored("Error! Files already exist.", "red"))
@@ -69,14 +75,27 @@ else:
     print(colored(f"Error! Setup failed. Reason: {crashReason}", "red"))
     quit(1)
 
-print("Welcome to ProShell, we hope you enjoy ;)")
-
-time.sleep(1)
-os.system("clear")
-autoTime = 10
-for i in range(10):
-    print(f"Autostarting ProShell in {autoTime}, Press CTRL + C to cancel.")
-    time.sleep(1)
-    autoTime = autoTime - 1
-    os.system("clear")
-os.system("python3 mainterminal.py")
+while True:
+    setupCmd = input(colored(f"{directory}$setup: ", "light_green"))
+    setupCmd.lower()
+    if setupCmd == "help":
+        print("This is the setup terminal. If you're new, please refer to the README.md file in the Github repo.")
+    elif setupCmd[0:4] == "exec":
+        if len(setupCmd) == 4:
+            print("Invalid usage! Usage: exec [COMMAND]")
+        else:
+            os.system(setupCmd[5:9999999999999])
+    elif setupCmd == "start":
+        os.system("python3 mainterminal.py")
+    elif setupCmd == "restart":
+        os.system("python3 setup.py")
+    elif setupCmd == "clear":
+        os.system("clear")
+    elif setupCmd == "exit":
+        quit(0)
+    else:
+        if setupCmd == "":
+            print("Command not found!")
+        else:
+            wrongCmdSplit = setupCmd.split()
+            print(f"Command {wrongCmdSplit[0]} not found!")
