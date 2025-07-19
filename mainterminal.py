@@ -165,10 +165,10 @@ while True:
 
     if cmd[0:3] == "ver":
         if len(cmd) == 3:
-            print("ProShell version Alpha 1.9")
+            print("ProShell version Alpha 1.10")
         else:
             if cmd[4:6] == "-d":
-                print("ProShell version Alpha 1.9\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
+                print("ProShell version Alpha 1.10\nCredits:\nBálint Vámosi: Lead developer.\nLinus Torvalds and the Linux team: Inspiration for this mockup.\nGergő Vámosi: Co-Owner of the project.")
             elif cmd[4:6] == "-h":
                 print("Displays the current version of ProShell.\nUsage:\nver [FLAGS]")
     elif cmd[0:4] == "help":
@@ -207,10 +207,10 @@ while True:
                 print("Prints help of commands.\nFlags:\n-a: Shows all commands.\nUsage:\nhelp [<FLAGS>] [<COMMAND>]")
             elif cmd[5:12] == "restart":
                 print("Restarts the program.")
-            elif cmd[5:8] == "crt":
-                print("Creates a file.\nUsage:\ncrt [FILENAME]")
+            elif cmd[5:8] == "mk":
+                print("Creates a file.\nUsage:\nmk [FILENAME]")
             elif cmd[5:7] == "rm":
-                print("Removes a file.\nFlags:\n-su: Runs as superuser.\n-h: Prints a help prompt.\nUsage:\nrm [<FLAGS>] [FILE]")
+                print("Removes a file or directory.\nFlags:\n-su: Deletes as root (sudo)\n-d: Deletes a directory instead of a file.\n-h: Prints this help text.\nUsage: rm [<FLAGS>] [FILE/DIRECTORY]")
             elif cmd[5:7] == "cp":
                 print("Copies a file.\nUsage:\ncp [FILE],[DESTINATION]")
             elif cmd[5:11] == "pyexec":
@@ -226,11 +226,13 @@ while True:
             elif cmd[5:10] == "login":
                 print("Executes the login script.")
             elif cmd[5:13] == "contains":
-                print("Searches for a substring in a string.\nUsage:\ncontains [<FLAGS>]\nFlags:\n-f: Searches in a file.")
+                print("Searches for a substring in a string.\nUsage:\ncontains [<FLAGS>] [<FILE>]\nFlags:\n-f: Searches in a file.")
             elif cmd[5:11] == "whoami":
                 print("Prints the active user's username.")
-            elif cmd[5:14] == "latestlog":
-                print("Prints the latest log recorded.")
+            elif cmd[5:14] == "pwd":
+                print("Prints the current working directory.")
+            elif cmd[5:10] == "mkdir":
+                print("Makes a directory.\nFlags:\n-su: Makes as root (sudo)\nUsage:\nmkdir [<FLAGS>] [DIRECTORY]")
             else:
                 print(f"No help document detected for {cmd[5:999999999999999999999999999999999999999]}.")
     elif cmd[0:4] == "exit":
@@ -358,25 +360,37 @@ while True:
         if len(cmd) == 2:
             print("Invalid usage! Usage: rm [<FLAGS>] [FILE]")
         else:
-            if cmd[3:6] == "-su":
+            rmSplit = cmd.split()
+            if rmSplit[1] == "-su":
                 try:
                     os.system(f"sudo rm {cmd[7:9999999999999999999999999]}")
                 except FileNotFoundError:
-                    print(colored(f"Error! File {cmd[7:99999999999999999999999999]} doesn't exit!", "red"))
+                    print(colored(f"Error! File {cmd[7:99999999999999999999999999]} doesn't exit.", "red"))
+                except IsADirectoryError:
+                    print(colored(f"Error! File {cmd[7:99999999999999999999999999]} is a directory.", "red"))
                 except:
                     print(colored("Error! Unknown.", "red"))
-            elif cmd[3:5] == "-h":
-                print("Removes a file.")
+            elif rmSplit[1] == "-h":
+                print("Removes a file or directory.\nFlags:\n-su: Deletes as root (sudo)\n-d: Deletes a directory instead of a file.\n-h: Prints this help text.\nUsage: rm [<FLAGS>] [FILE/DIRECTORY]")
+            elif rmSplit[1] == "-d":
+                try:
+                    os.rmdir(cmd[6:99999999999999999])
+                except FileNotFoundError:
+                    print(colored(f"Error! File {cmd[6:999999999999999999]} not found.", "red"))
+                except IsADirectoryError:
+                    print(colored(f"Error! File {cmd[6:999999999999999999]} is a directory.", "red"))
+                except:
+                    print(colored(f"Error! Unknown.", "red"))
             else:
                 try:
-                    os.remove(cmd[3:9999999999999999999])
+                    os.remove(cmd[3:99999999999999])
                 except FileNotFoundError:
-                    print(colored(f"Error! File {cmd[7:99999999999999999999999999999]} doesn't exist!", "red"))
+                    print(colored(f"Error! File {cmd[3:99999999999999999999999999999]} doesn't exist.", "red"))
                 except:
                     print(colored("Error! Unknown.", "red"))
-    elif cmd[0:3] == "crt":
+    elif cmd[0:3] == "mk":
         if len(cmd) == 3:
-            print("Invalid usage! Usage: crt [FILENAME]")
+            print("Invalid usage! Usage: mk [FILENAME]")
         else:
             f = open(f"{cmd[4:999999999999999999999]}", "w")
             f.close()
@@ -512,6 +526,20 @@ while True:
         print(userName)
     elif cmd[0:3] == "pwd":
         print(cwd)
+    elif cmd[0:5] == "mkdir":
+        mkdirSplit = cmd.split()
+        if len(mkdirSplit) == 1:
+            print("Invalid usage! Usage: mkdir [<FLAGS>] [DIRECTORY]")
+        else:
+            if len(mkdirSplit) == 2:
+                os.mkdir(mkdirSplit[1])
+            else:
+                if mkdirSplit[1] == "-su":
+                    os.system(f"sudo mkdir {mkdirSplit[2]}")
+                elif mkdirSplit[1] == "-h":
+                    print("Creates a directory.\nFlags:\n-su: Creates as root user (sudo).\n-h: Prints this help prompt.\nUsage:\nmkdir [<FLAGS>] [DIRECTORY]")
+                else:
+                    os.mkdir(mkdirSplit[1:len(mkdirSplit)])
     else:
         if not cmd == "":
             cmdNotFound = cmd.split()
